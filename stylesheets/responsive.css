@@ -1,0 +1,321 @@
+/* Media Queries
+-------------------------------------------------------------- */
+@media only screen and (max-width: 1366px) {
+	
+}
+
+@media only screen and (min-width: 1200px) {
+	.container {
+		width: 1200px;
+	}
+}
+
+/* Smaller than standard 1200 */
+@media only screen and (max-width: 1199px) {
+	ul.flat-infomation li {
+		margin-right: 20px;
+	}
+
+	.form-qoute,
+	.testimonial-item blockquote,
+	.flat-introduce h1 {
+		padding: 0;
+	}
+
+	.form-request-qoute {
+		padding: 50px 15px;
+	}
+
+	.page-title {
+		padding: 30px 0;
+	}
+
+	.header #logo {
+		margin-left: 0;
+	}
+
+	.nav-wrap {
+		order: 3;
+	}
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.header-content ul li {
+		width: 215px;
+	}
+
+	.nav-wrap {
+		float: none;
+		order: 3;
+		text-align: center;
+		width: 100%;
+	}
+
+}
+
+/* Smaller than standard 992 */
+@media only screen and (max-width: 991px) {
+	.flat-iconbox.style3 .height30 {
+		display: none;
+	}
+
+	.top .content-left,
+	.top .content-right {
+		text-align: center;
+		float: none;
+	}
+
+	.nav.header-style4 {
+		padding: 0 15px;
+	}
+
+	.nav.header-style2 .flat-social {
+		margin-top: 28px;
+	}
+
+	.header.style2 #logo,
+	.header.style4 #logo {
+		margin-top: 25px;
+		text-align: center;
+		float: none;
+	}
+
+	.header-content ul li {
+		width: 33.33%;
+		margin-right: 0px;
+	}
+
+	.flat-row, .footer-widgets,
+	.flat-testimonial,
+	.flat-imagebox.style2,
+	.flat-counter,
+	.flat-accordion,
+	.footer-widgets,
+	.flat-iconbox.style3,
+	.flat-iconbox.style1,
+	.flat-counter.style2,
+	.flat-imagebox.style3 {
+		padding: 50px 0;
+	}
+
+	.btn-menu {
+	    display: block;
+	}
+
+	.main-about.page-wrap .content-area,
+	.main-about.page-wrap .widget-area,
+	.box-item .text-box.left, .box-item .img-box {
+		float: none;
+	}
+
+	.page-wrap .content-area,
+	.page-wrap .widget-area,
+	.box-item .text-box.left, 
+	.box-item .img-box,
+	.box-item .img-box img {
+		width: 100%;
+	}
+
+	.main-about.page-wrap .widget-area {
+		padding-right: 0;
+	}
+
+	.news-post .entry-post .content-post .button-post a {
+		margin-top: 20px;
+	}
+
+	.form-qoute .desc-qoute {
+		padding: 0;
+	}
+
+	.iconbox .iconbox-content h3.iconbox-title {
+		font-size: 20px;
+	}
+
+	.iconbox.style3 .iconbox-content .iconbox-title {
+		font-size: 18px;
+	}
+
+	.iconbox .iconbox-content .iconbox-desc {
+	    overflow: visible;
+	}
+
+	.page-wrap .widget-area {
+		padding-left: 0;
+	}
+
+	.main-blog .content-area {
+		margin-bottom: 30px;
+	}
+
+	article.blog-post {
+		padding-bottom: 30px;
+		margin-bottom: 30px;
+	}
+
+	.footer-widgets .widget.widget-nav-menu {
+		margin-left: 0;
+	}
+
+}
+
+/* Tablet Landscape */
+ @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+
+}
+
+/* Tablet Portrait Size */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.form-request-qoute .flat-wrap-form .flat-wrap-input {
+		float: none;
+		width: 100%;
+	}
+}
+
+/* All Mobile Sizes */
+@media only screen and (max-width: 767px) {	
+
+
+	.imagebox.style1 .imagebox-image img,
+	.featured-post a img,
+	.imagebox.style3 .imagebox-image a img {
+		width: 100%;
+	}
+
+	.iconbox.style1,
+	.imagebox.style1,
+	.text-box,
+	.counter-title,
+	.iconbox.style2,
+	.iconbox.style3,
+	.branch,
+	.imagebox.style3,
+	.iconbox.style4 {
+	    margin-bottom: 30px;
+	}
+
+	.height60,
+	.height70,
+	.height45 {
+		display: none;
+	}
+	
+	.flat-qoute {
+		padding: 30px 0;
+		text-align: center;
+	}
+
+	.flat-qoute .btn-qoute,
+	.counter-item,
+	.counter-title h2 {
+		text-align: center;
+	}
+
+	.counter-title h2:after {
+		left: 50%;
+		margin-left: -60px;
+	}
+
+	.text-box {
+		padding-right: 0;
+	}
+
+	.box-item.style3 .text-box h2 {
+		font-size: 32px;
+		line-height: 32px;
+	}
+
+	.flat-list-year ul {
+		margin-left: 5px;
+	}
+
+	.flat-list-year ul li div:before {
+		left: 0;
+	}
+
+	.flat-list-year ul li div:after {
+		left: -5px;
+	}
+
+}
+
+/* Mobile Landscape Size */
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+	
+}
+
+/* Mobile Portrait Size */
+@media only screen and (max-width: 599px) {
+
+	.header.style2 #logo,
+	.header.style4 #logo {
+		text-align: left;
+	}
+
+	ul.flat-social {
+		display: block;
+		margin-right: 0;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.form-qoute .form-qoute-title {
+		font-size: 30px;
+	}
+
+	.flat-wrap-form .flat-wrap-input,
+	.footer-widgets .flat-one-half,
+	.counter-item,
+	.footer-widgets .widget.widget-nav-menu ul li,
+	.imagebox .imagebox-wrap,
+	.flat-one-half {
+		float: none;
+		width: 100%;
+	}
+
+	.header-content ul li {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+
+	.header-content ul {
+		margin-bottom: 0;
+	}
+
+	.about-post.style3 .imagebox .height30 {
+		display: none;
+	}
+	
+	.imagebox .imagebox-wrap,
+	#contactform .flat-one-half .input-submit {
+		margin-bottom: 30px;
+	}
+
+	.flat-list-year ul li span {
+		margin-top: -5px;
+	}
+
+	.flat-list-year ul li div {
+		padding-bottom: 30px;
+	}
+
+	.flat-list-year ul li div:before {
+		left: 25px;
+	}
+
+	.flat-list-year ul li div:after {
+		left: 20px;
+		top: 0;
+	}
+
+	.page-title .page-title-heading,
+	.page-title .trail-items {
+		display: table;
+		width: 100%;
+		text-align: left;
+	}
+}
+
+@media (max-width: 320px) {	
+	
+}

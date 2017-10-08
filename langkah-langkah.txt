@@ -1,0 +1,15 @@
+- non login 
+-	bisa liat 5 artikel terbaru dari all skpd (recent upload artikel)
+- 	option liat skpd untuk liat all artikel 
+- 	download page, untuk menampilkan semua uploadtan file pdf
+-	
+
+
+-	admin bisa upload artikel, dokumen(.doc & .pdf)
+
+-	superadmin untuk buat username
+
+
+
+-	admin per skpd mau upload artikel atau dokumen
+-	username & password 
