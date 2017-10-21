@@ -18,19 +18,19 @@
 									<div class="contact-info">
 										<div class="contact-item">
 											<h4>Alamat</h4>
-											<p>Kantor Komisi Pemilihan Umum Kabupaten Jember</p>
-											<p>Jl. Kalimantan 31, Jember 68121</p>
+											<p>Bagian Humas dan Protokol</p>
+											<p>Jl. Sudarman 1 Jember – 68118</p>
 										</div>
 										<div class="height35"></div>
 										<div class="contact-item">
 											<h4>Telephone</h4>
-											<p>Telp. (0331) 333815</p>
-											<p>Fax. (0331) 337473</p>
+											<p>Telp. (0331) 428824</p>
+											<p>Fax. (0331) 425644</p>
 										</div>
 										<div class="height35"></div>
 										<div class="contact-item">
 											<h4>E-mail</h4>
-											<p>kpujember.teknis@gmail.com</p>
+											<p>ppidjember@gmail.com</p>
 										</div>
 									</div><!-- /.contact-info -->
 								</div>

@@ -17,9 +17,9 @@
                  <div class="col-md-6">
                      <div class="profile-desk">
                          <h1><?php echo $fn; ?></h1>
-                         <span class="text-muted">sebagai: <?php echo $level ?></span>
+                         <!-- <span class="text-muted">sebagai: <?php echo $level; ?></span> -->
                          <p>
-                             Selamat datang, Admin anda login sebagai admin Dinas Perpajakan. manfaatkan halaman admin ini sebaik mungkin jika ada yang kurang jelas dimohon sangat untuk bertanya kepada IT Support PPID Jember.
+                             Selamat datang, <b><?php echo $fn; ?></b> anda login sebagai admin <b><?php echo $locname; ?></b>. manfaatkan halaman Admin Data ini sebaik mungkin jika ada yang kurang jelas dimohon sangat untuk bertanya kepada IT Support PPID Jember.
                          </p>
                          <!-- <a href="#" class="btn btn-primary">View Profile</a> -->
                      </div>

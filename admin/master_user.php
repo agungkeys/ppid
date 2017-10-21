@@ -12,7 +12,7 @@
                         <button onclick="us.tambah();" id="tambah" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah User</button>
                     	<button onclick="us.prepare();" id="batal" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> Batal</button>
                     	<button onclick="us.adduser();" id="simpan" class="btn btn-sm btn-success"><i class="fa fa-check"></i> Simpan</button>
-                    	<button id="perbarui" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i> Perbarui</button>
+                    	<button onclick="us.editUserSave();" id="perbarui" class="btn btn-sm btn-success"><i class="fa fa-refresh"></i> Perbarui</button>
                     </span>
 	            </header>
                 <div id="griduser" class="panel-body">
@@ -24,6 +24,7 @@
                                     <th>Nama Pengguna</th>
                                     <th>Nama Lengkap</th>
                                     <th>Email</th>
+                                    <th>Password</th>
                                     <th>Level</th>
                                     <th>Lokasi</th>
                                     <th>Aksi</th>
@@ -38,7 +39,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <form method="post" id="form-add-user">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Nama Pengguna</label>
+                                <label class="col-sm-4 col-form-label">Username</label>
                                 <div class="col-md-8">
                                     <input type="text" name="username" class="form-control" id="username" /> 
                                 </div>
@@ -46,7 +47,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Password</label>
                                 <div class="col-md-8">
-                                    <input type="password" name="password" class="form-control" id="password"/> 
+                                    <input type="text" name="password" class="form-control" id="password"/> 
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -65,9 +66,10 @@
                                 <label class="col-sm-4 col-form-label">Level</label>
                                 <div class="col-md-8">
                                     <select id="level" name="level" class="selectpicker form-control m-bot15" title="Pilih Level...">
-                                        <option data-tokens="Admin">Admin</option>
-                                        <option data-tokens="Pimpinan">Pimpinan</option>
-                                        <option data-tokens="Pegawai">Pegawai</option>
+                                        <?php if($level != 'Super Admin'){}else{echo '<option data-tokens="Super Admin">Super Admin</option>';} ?>
+                                        <option data-tokens="Admin Operator">Admin Operator</option>
+                                        <!-- <option data-tokens="Pimpinan">Pimpinan</option>
+                                        <option data-tokens="Pegawai">Pegawai</option> -->
                                     </select>
                                 </div>
                             </div>
@@ -84,9 +86,9 @@
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <form method="post" id="form-add-user">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Nama Pengguna</label>
+                                <label class="col-sm-4 col-form-label">Username</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="edusername" class="form-control" id="edusername" /> 
+                                    <input type="text" name="edusername" class="form-control" id="edusername" readonly /> 
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -110,17 +112,18 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Level</label>
                                 <div class="col-md-8">
-                                    <select id="edlevel" name="edlevel" class="selectpicker" title="Pilih Level...">
-                                        <option data-tokens="Admin">Admin</option>
-                                        <option data-tokens="Pimpinan">Pimpinan</option>
-                                        <option data-tokens="Pegawai">Pegawai</option>
+                                    <select id="edlevel" name="edlevel" class="selectpicker form-control m-bot15" title="Pilih Level...">
+                                        <?php if($level != 'Super Admin'){}else{echo '<option data-tokens="Super Admin">Super Admin</option>';} ?>
+                                        <option data-tokens="Admin Operator">Admin Operator</option>
+                                        <!-- <option data-tokens="Pimpinan">Pimpinan</option>
+                                        <option data-tokens="Pegawai">Pegawai</option> -->
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Satuan Kerja</label>
                                 <div class="col-md-8">
-                                    <select id="edlokasiunit" name="edlokasiunit" class="form-control"></select>
+                                    <select id="edlokasiskpd" name="edlokasiskpd" class="form-control"></select>
                                 </div>
                             </div>
                         </form>

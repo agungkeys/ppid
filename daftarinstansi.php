@@ -1,9 +1,12 @@
 <script type="text/javascript">
 	hal.page("DaftarInstansi");
 </script>
+<?php
+	include('admin/engine/db_config.php');
+?>
 <div class="content-area">
 	<div class="post-wrap" style="margin-top: -24px;">
-		<article class="" style="padding-bottom: 25px;">
+		<article class="">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="col-md-12">
@@ -12,10 +15,10 @@
 								<div class="col-md-12"> -->
 									<h2 class="entry-title" style="width: 100%;">
 										<!-- <a href="#" title="Daftar Instansi">Daftar Instansi <span id="titleinstansi"></span></a> -->
-										<div class="row">
+										<div class="row" style="margin-top: 21px;">
 											<ul class="breadcrumbs-alt">
 						                        <li id="br1">
-						                            <a href="#" onclick="di.prepareAll();">Daftar Instansi</a>
+						                            <a href="#" onclick="di.backDaftarInstansiHome();">Daftar Instansi</a>
 						                        </li>
 						                        <li id="br2">
 						                            <a href="#" id="back2new"><span id="titleinstansi"></span></a>
@@ -26,10 +29,10 @@
 						                    </ul>
 										</div>
 										
-										<div style="text-align: right; margin-top: -55px;">
+										<div style="text-align: right; margin-top: -55px; margin-right: -15px;">
 											<!-- <button id="back1" class="btn btn-sm btn-default" ><i class="fa fa-arrow-circle-left"></i> Kembali</button> -->
 											<!-- <button id="back2" class="btn btn-sm btn-default"><i class="fa fa-arrow-circle-left"></i> Kembali</button> -->
-											<button id="downloadfile" class="btn btn-sm btn-primary">Download File</button>
+											<button id="downloadfile" class="btn btn-sm btn-primary"><i class="fa fa-file"></i>&nbsp; Show Dokumen</button>
 										</div>
 									</h2>
 									
@@ -40,193 +43,172 @@
 				</div>
 			</div>
 		</article>
-		<div id="beritainstansi" style="margin-top: -25px;">
-			<article class="blog-post">
+		<div id="profileinstansi" style="padding-top: 19px;" data-bind="visible: hal.profilinstansi">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="title-daftarinstansi">
+						<span>Profil Instansi</span>
+					</div>
+					<div class="title-daftarinstansi-isi">
+						<span>
+							<table>
+								<tr>
+									<td>Satuan</td>
+									<td>&nbsp;:&nbsp;</td>
+									<td><span id="infodinas"></span></td>
+								</tr>
+								<tr>
+									<td>Pejabat</td>
+									<td>&nbsp;:&nbsp;</td>
+									<td><span id="infopejabat"></span></td>
+								</tr>
+								<tr>
+									<td>Alamat</td>
+									<td>&nbsp;:&nbsp;</td>
+									<td><span id="infolokasi"></span></td>
+								</tr>
+								<tr>
+									<td>Telephone</td>
+									<td>&nbsp;:&nbsp;</td>
+									<td><span id="infotelp"></span></td>
+								</tr>
+							</table>
+						</span>
+					</div>
+				</div>
+				<!-- <div class="col-md-3">
+					<div class="title-daftarinstansi">
+						<span><i class="fa fa-institution"></i> SATUAN</span>
+					</div>
+					<div class="title-daftarinstansi-isi">
+						<span id="infodinas"></span>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="title-daftarinstansi">
+						<span><i class="fa fa-user-circle"></i> PEJABAT</span>
+					</div>
+					<div class="title-daftarinstansi-isi">
+						<span id="infopejabat"></span>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="title-daftarinstansi">
+						<span><i class="fa fa-map-pin"></i> ALAMAT</span>
+					</div>
+					<div class="title-daftarinstansi-isi">
+						<span id="infolokasi"></span>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="title-daftarinstansi">
+						<span><i class="fa fa-phone"></i> TELEPHONE</span>
+					</div>
+					<div class="title-daftarinstansi-isi">
+						<span id="infotelp"></span>
+					</div>
+				</div> -->
+			</div>
+			<!-- <div style="background: #efefef; padding: 10px 0;">
 				<div class="row">
 					<div class="col-md-12">
-						<div class="col-md-12">
-							<div class="entry-post">
-								<h4 class="entry-title">
-									<a href="#" title="">Contoh Berita 1 <span id="titleinstansi1"></span></a>
-								</h4>
-								<ul class="entry-meta">
-									<li class="post-date">
-										May 19, 2017
-									</li>
-									<li class="post-author">
-										<span>By <a href="#" title="">admin</a></span>
-									</li>
-									<li class="post-categories">
-										<a href="#" title="">Dokumen Negara Rahasia</a>
-									</li>
-								</ul>
-								<!-- <div class="clearfix">
-								</div> -->
-							</div>
+						<div class="col-md-6">
+							<table>
+								<tr>
+									<td><i class="fa fa-institution"></i> Satuan</td>
+									<td>&nbsp;:&nbsp;</td>
+									<td><span id="infodinas"></span></td>
+								</tr>
+								<tr>
+									<td><i class="fa fa-user-circle"></i> Pejabat</td>
+									<td>&nbsp;:&nbsp;</td>
+									<td><span id="infopejabat"></span></td>
+								</tr>
+							</table>
 						</div>
-						<div class="col-md-4">
-							<div class="featured-post">
-								<a href="#" title="">
-									<img src="images/blog/blog-02.jpg" alt="">
-								</a>
-							</div><!-- /.featured-post -->
-						</div>
-						<div class="col-md-8">
-							<div class="content-post">
-								<p>
-									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into. 
-									<a href="index.php?page=detailberita" style="color: #2691e4">read more...</a>
-								</p>
-								<!-- <div class="button-post">
-									<a href="blog-single.html" title="">Read More</a>
-								</div> -->
-							</div><!-- /.content-post -->
+						<div class="col-md-6">
+							<table>
+								<tr>
+									<td><i class="fa fa-map-pin"></i> Alamat</td>
+									<td>&nbsp;:&nbsp;</td>
+									<td><span id="infolokasi"></span></td>
+								</tr>
+								<tr>
+									<td><i class="fa fa-phone"></i> Telephone</td>
+									<td>&nbsp;:&nbsp;</td>
+									<td><span id="infotelp"></span></td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
-			</article><!-- /.blog-post -->
-			<article class="blog-post">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="col-md-12">
-							<div class="entry-post">
-								<h4 class="entry-title">
-									<a href="#" title="">Contoh Berita 2 <span id="titleinstansi2"></span></a>
-								</h4>
-								<ul class="entry-meta">
-									<li class="post-date">
-										May 19, 2017
-									</li>
-									<li class="post-author">
-										<span>By <a href="#" title="">admin</a></span>
-									</li>
-									<li class="post-categories">
-										<a href="#" title="">Dokumen Negara Rahasia</a>
-									</li>
-								</ul>
-								<!-- <div class="clearfix">
-								</div> -->
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="featured-post">
-								<a href="#" title="">
-									<img src="images/blog/blog-03.jpg" alt="">
-								</a>
-							</div><!-- /.featured-post -->
-						</div>
-						<div class="col-md-8">
-							<div class="content-post">
-								<p>
-									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into. 
-									<a href="index.php?page=detailberita" style="color: #2691e4">read more...</a>
-								</p>
-								<!-- <div class="button-post">
-									<a href="blog-single.html" title="">Read More</a>
-								</div> -->
-							</div><!-- /.content-post -->
-						</div>
-					</div>
-				</div>
-			</article><!-- /.blog-post -->
-			<article class="blog-post">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="col-md-12">
-							<div class="entry-post">
-								<h4 class="entry-title">
-									<a href="#" title="">Contoh Berita 3 <span id="titleinstansi3"></span></a>
-								</h4>
-								<ul class="entry-meta">
-									<li class="post-date">
-										May 19, 2017
-									</li>
-									<li class="post-author">
-										<span>By <a href="#" title="">admin</a></span>
-									</li>
-									<li class="post-categories">
-										<a href="#" title="">Dokumen Negara Rahasia</a>
-									</li>
-								</ul>
-								<!-- <div class="clearfix">
-								</div> -->
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="featured-post">
-								<a href="#" title="">
-									<img src="images/blog/blog-03.jpg" alt="">
-								</a>
-							</div><!-- /.featured-post -->
-						</div>
-						<div class="col-md-8">
-							<div class="content-post">
-								<p>
-									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into. 
-									<a href="index.php?page=detailberita" style="color: #2691e4">read more...</a>
-								</p>
-								<!-- <div class="button-post">
-									<a href="blog-single.html" title="">Read More</a>
-								</div> -->
-							</div><!-- /.content-post -->
-						</div>
-					</div>
-				</div>
-			</article><!-- /.blog-post -->
-			
-			<div class="paging-navination">
-				<ul class="flat-pagination">
-					<li class="active">
-						<a href="#" title="">1</a>
-					</li>
-					<li>
-						<a href="#" title="">2</a>
-					</li>
-					<li class="next-page">
-						<a href="#" title="">Next<i class="fa fa-angle-double-right"></i></a>
-					</li>
-				</ul><!-- /.flat-pagination -->
-			</div><!-- /.paging-navigation -->
+			</div> -->
 		</div>
-		<div id="daftarallinstansi" class="" style="padding-top: 10px;">
+		<div id="beritainstansi" style="padding-top: 15px;">
+			<div id="beritainstansifill"></div>
+		</div>
+
+
+		<div id="daftarallinstansi" class="" style="padding-top: 40px;">
 			<div class="sidebar">
 				<div class="widget widget-recent">
 					<ul>
+						<?php
+							$query = $mysqli->query("SELECT * FROM skpd WHERE STATUS ='AKTIF' ORDER BY NAME ASC"); 
+							if($query->num_rows > 0){ 
+						            while($row = $query->fetch_assoc()) { 
+						?>
 						<li>
-							<a href="#" title="" onclick="di.showberitainstansi('Sosial');">Dinas Sosial</a>
+							<?php echo "<a href='#' onclick='di.showberitainstansi(\"".$row['IDSKPD']."\",\"".$row['NAME']."\")'>";?><?php echo $row["NAME"]; ?></a>
 						</li>
-						<li>
-							<a href="#" title="" onclick="di.showberitainstansi('Kesehatan');">Dinas Kesehatan</a>
-						</li>
-						<li>
-							<a href="#" title="" onclick="di.showberitainstansi('Pendidikan');">Dinas Pendidikan</a>
-						</li>
-						<li>
-							<a href="#" title="" onclick="di.showberitainstansi('Pekerjaan Umum');">Dinas Pekerjaan Umum</a>
-						</li>
-						<li>
-							<a href="#" title="" onclick="di.showberitainstansi('Koperasi');">Dinas Koperasi</a>
-						</li>
-						<li>
-							<a href="#" title="" onclick="di.showberitainstansi('Lingkungan Hidup');">Dinas Lingkungan Hidup</a>
-						</li>
-						<li>
-							<a href="#" title="" onclick="di.showberitainstansi('Pemadam Kebakaran');">Dinas Pemadam Kebakaran</a>
-						</li>
+						<?php
+								}
+							}
+						?>
 					</ul>
 				</div>
 			</div>
 		</div>
 
 		<div class="" id="daftarallinstansidetail" style="padding-top: 25px;">
-		    <div class="table-responsive" id="gridinstansi">
-		        <table id="DataTableInstansi" class="table table-bordered table-striped table-hover"></table>
-		    </div>
+		     <div class="table-responsive" id="gridinstansi">
+                <table id="DataTableDokumenInstansi" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nama Dokumen</th>
+                            <th>Keterangan</th>
+                            <th>Jenis</th>
+                            <th>File</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
 		</div>
+
 	</div>
 </div>
 
-
+<!-- Modal -->
+<div class="modal fade" id="modalinformasi" tabindex="-1" role="dialog" aria-labelledby="modalinformasi" style="z-index: 9999999">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="titleinformasi"></h4>
+      </div>
+      <div class="modal-body">
+		<textarea id="isiinformasi" class="wysihtml5 form-control" rows="9" readonly></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal -->
 
 
 
@@ -244,7 +226,7 @@ select[name='DataTableInstansi_length']{
 </style>
 <script type="text/javascript">
 	var di = {
-
+		skpd: ko.observable(""),
 	}
 
 	di.prepareAll = function(){
@@ -262,82 +244,157 @@ select[name='DataTableInstansi_length']{
 		$("#br3").hide();
 	}
 
-	di.ajaxGetDataInstansi = function(v){
-		
-		var dv ="Dinas "+v;
-		// console.log(dv)
-		var dataset = [["D0001", dv, "Dokumen 1 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"],
-		["D0002", dv, "Dokumen 2 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"],
-		["D0003", dv, "Dokumen 3 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"],
-		["D0004", dv, "Dokumen 4 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"],
-		["D0005", dv, "Dokumen 5 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"],
-		["D0006", dv, "Dokumen 6 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"],
-		["D0007", dv, "Dokumen 7 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"],
-		["D0008", dv, "Dokumen 8 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"],
-		["D0009", dv, "Dokumen 9 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"],
-		["D0010", dv, "Dokumen 10 Example "+dv+"", "Ini sebuah rangkuman dokumen "+dv+"", "<button class='btn btn-sm btn-primary'><i class='fa fa-save'></i></button>"]];
-		// var dataTable = $("#DataTableInstansi").dataTable({
-		// 	data: dataset,
-	 //        "processing": true,
-	 //        "serverSide": true,
-	        
-	 //        "order": [[ 0, 'ASC' ]],
-	 //        "columnDefs": [ { orderable: false, targets: [0] },{ orderable: false, targets: [3] } ]
-	 //    });
-	    $('#DataTableInstansi').DataTable( {
-	        data: dataset,
-	        columns: [
-	            { title: "ID Dokumen" },
-	            { title: "SKPD" },
-	            { title: "Nama Dokumen" },
-	            { title: "Rangkuman" },
-	            { title: "File" }
-	        ]
+	di.previewisimodal = function(id, name){
+		$.ajax({
+        dataType: 'json',
+        type:'post',
+        url: './admin/controller/data_dokumen/data_dokumen_show_edit.php',
+        data:{kode:id}
+	    }).done(function(data){
+
+	        $("#modalinformasi").modal('show');
+	        $("#titleinformasi").text(name);
+	        $('#isiinformasi').data("wysihtml5").editor.setValue(data.RANGKUMANDOKUMEN);
+	        $(".modal-body .wysihtml5-toolbar").hide();
 	    });
 	}
 
-	di.showberitainstansi = function(val){
+	di.backDaftarInstansiHome = function(){
+		window.location.href = "index.php?page=daftarinstansi";
+	}
+
+	di.ajaxGetDataInstansii = function(id){
+		di.skpd(id);
+		var dataTable = $("#DataTableDokumenInstansi").dataTable({
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax":{
+	            "url": "./admin/controller/daftar_informasi/daftar_informasi_controller.php",
+	            "type": "POST",
+	            "data": function ( d ) { 
+	            	return $.extend( {}, d, {
+	            		"idskpd" : di.skpd()
+	            	} );
+	            },
+	            error: function(){
+	                $(".DataTableDokumenInstansi-error").html("");
+	                $("#DataTableDokumenInstansi").append('<tbody class="DataTableDokumenInstansi-grid-error"><tr><th colspan="6">Data Tidak Ditemukan...</th></tr></tbody>');
+	                $("#DataTableDokumenInstansi_processing").css("display","none");
+	            },
+	            complete: function(){
+	            	$("#DataTableDokumenInstansi_length").hide();
+	            	$("#DataTableDokumenInstansi_filter").hide();
+	            	$("#DataTableDokumenInstansi_info").hide();
+	            }
+	        },
+	        "order": [[ 0, 'asc' ]],
+	        "columnDefs": [ { orderable: false, targets: [1] }, { orderable: false, targets: [2] }, { orderable: false, targets: [3] }]
+	    });
+	}
+
+	di.getDataProfileInstansi = function(id){
+		hal.profilinstansi(true);
+		$.ajax({
+	        dataType: 'json',
+	        type:'post',
+	        url: './admin/controller/daftar_informasi/daftar_informasi_show_skpd.php',
+	        data:{kode:id}
+	    }).done(function(data){
+	    	if(data.NAME !=""){
+	    		$("#infodinas").text(data.NAME);
+	    	}else{
+	    		$("#infodinas").text("Data Tidak Diketahui");
+	    	}
+
+	    	if(data.PEJABAT !=""){
+	    		$("#infopejabat").text(data.PEJABAT);
+	    	}else{
+	    		$("#infopejabat").text("Data Tidak Diketahui");
+	    	}
+
+	    	if(data.LOCATION !=""){
+	    		$("#infolokasi").text(data.LOCATION);
+	    	}else{
+	    		$("#infolokasi").text("Data Tidak Diketahui");
+	    	}
+
+	    	if(data.TELP !=""){
+	    		$("#infotelp").text(data.TELP);
+	    	}else{
+	    		$("#infotelp").text("Data Tidak Diketahui");
+	    	}
+	    })
+	}
+
+	// AWAL SAAT MEMILIH SKPD
+	di.showberitainstansi = function(id, val){
+		di.getDataProfileInstansi(id);
 		$("#daftarallinstansi").hide();
 		$("#daftarallinstansidetail").hide();
 		$("#beritainstansi").show();
-		$("#titleinstansi").text("Dinas "+val);
-		$("#titleinstansi1").text("Dinas "+val);
-		$("#titleinstansi2").text("Dinas "+val);
-		$("#titleinstansi3").text("Dinas "+val);
+		$("#titleinstansi").text(val);
+		$("#titleinstansi1").text(val);
+		$("#titleinstansi2").text(val);
+		$("#titleinstansi3").text(val);
 
 		$("#back2").hide();
 		$("#back1").show();
 		$("#downloadfile").show();
 
-		$("#downloadfile").attr("onclick","di.showdetails('"+val+"')");
-		$("#gridinstansi").remove("");
+		$("#downloadfile").attr("onclick","di.showdetails('"+id+"','"+val+"')");
+		// $("#gridinstansi").remove("");
 
-		
 		$("#br2").show();
 		$("#br3").hide();
 		$("#br1>a").removeAttr('class','current');
 		$("#br2>a").addClass('current');
+		setTimeout(function(){
+			$("#beritainstansifill").load('daftarinstansiberita.php?idskpd='+id);
+		});
 	}
 
-	di.showdetails = function(val){
+
+	// KETIKA AKAN MEMILIH SHOW DOCUMENT
+	di.showdetails = function(id, val){
 		$("#daftarallinstansi").hide();
 		$("#beritainstansi").hide();
 		$("#daftarallinstansidetail").show();
-		$("#daftarallinstansidetail").append("<div class='table-responsive' id='gridinstansi'><table id='DataTableInstansi' class='table table-bordered table-striped table-hover'></table></div>")
-		di.ajaxGetDataInstansi(val);
+		$("#profileinstansi").css('padding-top','50px');
+		setTimeout(function(){
+			di.ajaxGetDataInstansii(id);
+		})
+		
+		
+		// $("#daftarallinstansidetail").append("<div class='table-responsive' id='gridinstansi'><table id='DataTableInstansi' class='table table-bordered table-striped table-hover'></table></div>")
+		// di.ajaxGetDataInstansi(val);
 
 		$("#back2").show();
 		$("#back1").hide();
 		$("#downloadfile").hide();
-		$("#back2new").attr("onclick","di.showberitainstansi('"+val+"')");
+		$("#back2new").attr("onclick","di.showberitainstansiAgain('"+val+"')");
 
-		$("#titleinstansidetails").text("Download Dokumen "+val);
+		$("#titleinstansidetails").text("Download Dok. "+val);
 
 		$("#br3").show();
 		$("#br2>a").removeAttr('class','current');
 		$("#br3>a").addClass('current');
 
+		
+	}
 
+	di.showberitainstansiAgain = function(){
+		$("#gridinstansi").remove("");
+		$("#daftarallinstansidetail").append("<div class='table-responsive' id='gridinstansi'><table id='DataTableDokumenInstansi' class='table table-bordered table-striped table-hover'><thead><tr><th>Nama Dokumen</th><th>Keterangan</th><th>Jenis</th><th>File</th></tr></thead><tbody></tbody></table></div>")
+		$("#beritainstansi").show();
+		$("#daftarallinstansidetail").hide();
+
+		$("#br2").show();
+		$("#br3").hide();
+		$("#br1>a").removeAttr('class','current');
+		$("#br2>a").addClass('current');
+		$("#profileinstansi").css('padding-top','19px');
+		// $("#beritainstansi").css('margin-top','10px');
+		$("#downloadfile").show();
 	}
 
 	di.back2 = function(){
@@ -352,6 +409,10 @@ select[name='DataTableInstansi_length']{
 
 	$(document).ready(function(){
 		di.prepareAll();
-		
+		$('#isiinformasi').wysihtml5({
+			"stylesheets": [],
+			"link": false, 
+	    	"image": false
+		});
 	})
 </script>

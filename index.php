@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
@@ -6,7 +7,7 @@
 	<!-- Basic Page Needs -->
 	<meta charset="UTF-8">
 	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-	<title>PPID Kabupaten Jember</title>
+	<title>PPID Pemerintah Kabupaten Jember | Terbuka - Transparan</title>
 
 	<meta name="author" content="PPID Kabupaten Jember">
 
@@ -35,19 +36,27 @@
     <!-- DataTables -->
 	<link rel="stylesheet" type="text/css" href="javascript/datatables/dataTables.min.css">
 
+	<!-- SweetAlert -->
+	<link href="plugin/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
+    <link href="plugin/toastr/toastr.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" type="text/css" href="admin/js/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+
 	<!-- Favicon -->
-    <link href="icon/cropped-phone-192x192.jpg" rel="icon">
-    <link href="icon/cropped-phone-180x180.jpg" rel="icon">
-    <link href="icon/favicon.jpg" rel="shortcut icon">
+    <link href="logo.png" rel="icon">
+    <link href="logo.png" rel="icon">
+    <link href="favicon.ico" rel="shortcut icon">
     <script type="text/javascript" src="javascript/jquery.min.js"></script>
     <script type="text/javascript" src="javascript/knockoutjs/knockout-3.4.2.js" type="text/javascript"></script>
     <script type="text/javascript">
       var hal = {
-        page: ko.observable("")
+        page: ko.observable(""),
+        jenisdok: ko.observable(""),
+        profilinstansi: ko.observable(false),
       };
     </script>
 </head>
-	<body class="header_sticky" onload="startTime()">
+	<body class="header_sticky">
 		<div class="boxed">
 
 		<!-- Preloader -->
@@ -62,11 +71,11 @@
 				<div class="content-left">
 					<ul class="flat-infomation">
 						<li class="phone">
-							<i class="fa fa-phone"></i>Telp. (0331) 333815
+							<i class="fa fa-phone"></i>Telp. 0331-428824
 						</li>
 						<li class="email">
 							<i class="fa fa-envelope"></i>
-							<a href="#" title="">Email: kpujember.teknis@gmail.com</a>
+							<a href="#" title="">ppidjember@gmail.com</a>
 						</li>
 					</ul><!-- /.flat-infomation -->
 				</div><!-- /.content-left -->
@@ -105,9 +114,9 @@
 
 								</a>
 								<div style="padding-left: 20px;">
-									<h3 style="margin-top: 0px; margin-bottom: 0px; font-weight: bold; color: #0096ff">PPID - KPU KABUPATEN JEMBER</h1>
-									<h5 style="margin-bottom: -5px; margin-top: 0px; color: #555; font-style: italic;">Terbuka - Berwibawa</h3>
-									<span style="font-size: 12px; margin-top: -20px; color: #000;">PEJABAT PENGELOLA INFORMASI DAN DOKUMENTASI KOMISI PEMILIHAN UMUM KABUPATEN JEMBER</span>
+									<h3 style="margin-top: 0px; margin-bottom: 0px; font-weight: bold; color: #0096ff">PPID Pemerintah Kabupaten Jember </h1>
+									<h5 style="margin-bottom: -5px; margin-top: 0px; color: #555; font-style: italic;">Terbuka - Transparan</h3>
+									<span style="font-size: 12px; margin-top: -20px; color: #000;">PEJABAT PENGELOLA INFORMASI DAN DOKUMENTASI PEMERINTAH KABUPATEN JEMBER.</span>
 								</div>
 								
 							</div><!-- /.logo -->
@@ -152,11 +161,50 @@
 							    		<li class="beranda">
 							    			<a href="index.php?page=beranda">Beranda</a>
 							    		</li>
-							    		<li class="tentangkami">
-							    			<a href="index.php?page=tentangkami">Tentang Kami</a>
+							    		<li class="seputarppid">
+							    			<a href="#">Seputar PPID</a>
+							    			<ul class="submenu">
+							    				<li>
+							    					<a href="index.php?page=dasarhukum" title="">Dasar Hukum</a>
+							    				</li>
+							    				<li>
+							    					<a href="index.php?page=profilppid" title="">Profil PPID</a>
+							    				</li>
+							    				<li>
+							    					<a href="index.php?page=pelayananppid" title="">Pelayanan PPID</a>
+							    				</li>
+							    			</ul>
+							    		</li>
+							    		<li class="jenisinformasi">
+							    			<a href="#">Jenis Informasi</a>
+							    			<ul class="submenu">
+							    				<li>
+							    					<a href="index.php?page=informasiberkala" title="">Informasi Berkala</a>
+							    				</li>
+							    				<li>
+							    					<a href="index.php?page=informasisertamerta" title="">Informasi Serta Merta</a>
+							    				</li>
+							    				<li>
+							    					<a href="index.php?page=informasisetiapsaat" title="">Informasi Setiap Saat</a>
+							    				</li>
+							    			</ul>
 							    		</li>
 							    		<li class="daftarinstansi">
 							    			<a href="index.php?page=daftarinstansi">Daftar Instansi</a>
+							    		</li>
+							    		<li class="daftarinformasi">
+							    			<a href="#">Daftar Informasi</a>
+							    			<ul class="submenu">
+							    				<li>
+							    					<a href="index.php?page=daftarinformasi&param=InformasiBerkala" title="">Informasi Berkala</a>
+							    				</li>
+							    				<li>
+							    					<a href="index.php?page=daftarinformasi&param=InformasiSertaMerta" title="">Informasi Serta Merta</a>
+							    				</li>
+							    				<li>
+							    					<a href="index.php?page=daftarinformasi&param=InformasiSetiapSaat" title="">Informasi Setiap Saat</a>
+							    				</li>
+							    			</ul>
 							    		</li>
 							    		<!-- <li class="berita">
 							    			<a href="index.php?page=berita">Berita</a>
@@ -199,13 +247,21 @@
 				          $page = (isset($_GET['page']))? $_GET['page'] : "main";
 				          switch ($page) {
 				              // case 'dataartikel': include "input_dataartikel.php"; break;
-				              case 'tentangkami': include "tentangkami.php"; break;
+				              // case 'tentangkami': include "tentangkami.php"; break;
+				              case 'dasarhukum': include "dasarhukum.php"; break;
+				              case 'profilppid': include "profilppid.php"; break;
+				              case 'pelayananppid': include "pelayananppid.php"; break;
+				              case 'informasiberkala': include "informasiberkala.php"; break;
+				              case 'informasisertamerta': include "informasisertamerta.php"; break;
+				              case 'informasisetiapsaat': include "informasisetiapsaat.php"; break;
+
 				              case 'daftarinstansi': include "daftarinstansi.php"; break;
 				              case 'berita': include "berita.php"; break;
 				              case 'detailberita': include "detailberita.php"; break;
 				              case 'kontak': include "kontak.php"; break;
 				              case 'cari': include "cari.php"; break;
 				              case 'request': include "request.php"; break;
+				              case 'daftarinformasi': include "daftarinformasi.php"; break;
 				              
 				              default : include 'beranda.php'; 
 				          	}
@@ -215,7 +271,7 @@
 							<div class="sidebar">
 								<div class="widget widget-nav-menu">
 									<ul class="menu-our-company">
-										<li>
+										<!-- <li>
 											<div style="padding: 10px 0;">
 												<div style="padding-bottom: 10px;">Pencarian Dokumen</div>
 												<div style="margin-bottom: -25px; padding-right: 25px;">
@@ -248,13 +304,64 @@
 														<input type="text" class="form-control" id="exampleInputAmount" placeholder="Cari Dokumen...">
 														<div onclick="cariDokumen();" class="input-group-addon" style="background: #2691e4; color: #fff; border-color: #2691e4"><i class="fa fa-search"></i></div>
 													</div>
-													<!-- <input type="" name=""><button class="btn btn-sm"><i class="fa fa-search"></i></button> -->
 												</div>
 											</div>
-										</li>
+										</li> -->
+										<!-- <li data-bind="visible: hal.profilinstansi">
+											<div id="profilinstansi" style="padding-top: 10px;">
+
+												<div style="padding-bottom: 10px;">Profil Instansi</div>
+												
+												<div class="input-group" style="padding-right: 25px; padding-bottom: 10px;">
+													<div style="font-weight: normal;">
+														<table>
+															<tr>
+																<td><i class="fa fa-institution"></i></td>
+																<td>&nbsp;:&nbsp;</td>
+																<td id="infodinas"></td>
+															</tr>
+															<tr>
+																<td><i class="fa fa-user-circle"></i></td>
+																<td>&nbsp;:&nbsp;</td>
+																<td id="infopejabat"></td>
+															</tr>
+															<tr>
+																<td><i class="fa fa-map-pin"></i></td>
+																<td>&nbsp;:&nbsp;</td>
+																<td id="infolokasi"></td>
+															</tr>
+															<tr>
+																<td><i class="fa fa-phone"></i></td>
+																<td>&nbsp;:&nbsp;</td>
+																<td id="infotelp"></td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</div>
+										</li> -->
+										<!-- <li>
+											<div class="title-left">
+												<span>Daftar Informasi</span>
+											</div>
+											<a style="padding: 20px 0;">
+												<div class="input-group" style="padding-right: 25px;">
+													<select id="infojenisdokumen" class="form-control">
+														<option value="">Pilih Jenis Dokumen...</option>
+														<option value="InformasiBerkala">Informasi Berkala</option>
+														<option value="InformasiSertaMerta">Informasi Serta Merta</option>
+														<option value="InformasiSetiapSaat"">Informasi Setiap Saat</option>
+													</select>
+													<div onclick="cariInformasi();" class="input-group-addon" style="background: #2691e4; color: #fff; border-color: #2691e4"><i class="fa fa-search"></i></div>
+												</div>
+											</a>
+										</li> -->
 										<li>
-											<div style="padding: 10px 0;">
-												<div style="padding-bottom: 10px;">Informasi Tanggal</div>
+											<div class="title-left">
+												<span>Informasi Tanggal</span>
+											</div>
+											<div style="padding: 20px 0;">
+												<!-- <div style="padding-bottom: 10px;">Informasi Tanggal</div> -->
 												<div style="display: flex;">
 													<i class="fa fa-calendar" style="font-size: 40px; color: #2691e4;"></i>
 													<ul>
@@ -264,9 +371,9 @@
 												</div>
 											</div>
 										</li>
-										<li>
+										<!-- <li>
 											<a style="padding: 10px 0;" href="index.php?page=daftarinstansi">
-												<div style="padding-bottom: 10px;">Daftar Instansi</div>
+												<div style="padding-bottom: 10px;">Daftar Informasi</div>
 												<div style="display: flex;">
 													<i class="fa fa-clock-o" style="font-size: 40px; color: #2691e4;"></i>
 													<ul>
@@ -275,7 +382,7 @@
 													</ul>
 												</div>
 											</a>
-										</li>
+										</li> -->
 										<!-- <div>
 											<ul id="tree3">
 											    <li style="padding-bottom: 3px;"><a href="#" style="padding-top: 0px;     margin-top: -10px;">Daftar Instansi</a>
@@ -319,7 +426,7 @@
 			                    <div class="textwidget">
 			                        <img src="images/logo-jember.png" alt="images" style="width: 55px;">
 			                        <p>
-			                        Pejabat Pengelola Informasi dan Dokumentasi Komisi Pemilihan Umum Kabupaten Jember.
+			                        Pejabat Pengelola Informasi dan Dokumentasi Pemerintah Kabupaten Jember.
 			                        </p>
 			                    </div>
 			                    <!-- <div class="widget widget_socials">
@@ -340,22 +447,27 @@
 									<li>
 										<i class="fa fa-home"></i>
 										<a href="#" title="" style="padding-left: 10px;">
-										Kantor Komisi Pemilihan Umum Kabupaten Jember</a>
+										Bagian Humas dan Protokol</a>
 									</li>
 									<li>
 										<i class="fa fa-map-marker"></i>
 										<a href="#" title="" style="padding-left: 10px;">
-										Jl. Kalimantan 31 Jember 68121</a>
+										Jl. Sudarman 1 Jember – 68118</a>
 									</li>
 									<li>
 										<i class="fa fa-phone"></i>
 										<a href="#" title="" style="padding-left: 10px;">
-										Telp. (0331) 333815</a>
+										Telp. (0331) 428824</a>
 									</li>
 									<li>
 										<i class="fa fa-fax"></i>
 										<a href="#" title="" style="padding-left: 10px;">
-										Fax. (0331) 337473</a>
+										Fax. (0331) 425644</a>
+									</li>
+									<li>
+										<i class="fa fa-envelope"></i>
+										<a href="#" title="" style="padding-left: 10px;">
+										ppidjember@gmail.com</a>
 									</li>
 									<!-- <li>
 										<a href="#" title="">Supply Chain Solutions</a>
@@ -404,7 +516,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="copyright">
-							<p>Coyright <i class="fa fa-copyright"></i>	2017 PPID Kab. Jember - All rights reserved.</p>
+							<p>Coyright <i class="fa fa-copyright"></i>	<?php echo date("Y"); ?> PPID Kab. Jember - All rights reserved.</p>
 						</div><!-- /.copyright -->
 						<a class="go-top">
                             <i class="fa fa-chevron-up"></i>
@@ -439,8 +551,20 @@
 	    <script type="text/javascript" src="javascript/main.js"></script>
 	    <!-- DataTables -->
 	    <script type="text/javascript" src="javascript/datatables/dataTables.min.js"></script>
+	    <script type="text/javascript" src="javascript/pdfobject.min.js"></script>
 
+	    <!-- Sweet alert js -->
+		<script src="plugin/sweetalert/sweetalert.min.js" type="text/javascript"></script>
+		<script src="plugin/toastr/toastr.min.js" type="text/javascript"></script>
+
+		<!-- WYSIWYG -->
+		<script type="text/javascript" src="admin/js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+		<script type="text/javascript" src="admin/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 	    <script>
+	    	function cariInformasi(){
+	    		var val = $("#infojenisdokumen").val();
+	    		window.location.href = "index.php?page=daftarinformasi&param="+val+"";
+	    	}
 	    	function cariDokumen() {
 		      	window.location.href = "index.php?page=cari";
 		    }  
@@ -452,36 +576,117 @@
 			        $(".daftarinstansi").removeClass("active");
 			        $(".berita").removeClass("active");
 			        $(".kontak").removeClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").removeClass("active");
 		      	}else if(pgMenu=="TentangKami"){
 		      		$(".beranda").removeClass("active");
 			        $(".tentangkami").addClass("active");
 			        $(".daftarinstansi").removeClass("active");
 			        $(".berita").removeClass("active");
 			        $(".kontak").removeClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").removeClass("active");
 		      	}else if(pgMenu=="DaftarInstansi"){
 		      		$(".beranda").removeClass("active");
 			        $(".tentangkami").removeClass("active");
 			        $(".daftarinstansi").addClass("active");
 			        $(".berita").removeClass("active");
 			        $(".kontak").removeClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").removeClass("active");
 		      	}else if(pgMenu=="Berita"){
 		      		$(".beranda").removeClass("active");
 			        $(".tentangkami").removeClass("active");
 			        $(".daftarinstansi").removeClass("active");
 			        $(".berita").addClass("active");
 			        $(".kontak").removeClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").removeClass("active");
 		      	}else if(pgMenu=="Kontak"){
 		      		$(".beranda").removeClass("active");
 			        $(".tentangkami").removeClass("active");
 			        $(".daftarinstansi").removeClass("active");
 			        $(".berita").removeClass("active");
 			        $(".kontak").addClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").removeClass("active");
+		      	}else if(pgMenu=="DasarHukum"){
+		      		$(".beranda").removeClass("active");
+			        $(".tentangkami").removeClass("active");
+			        $(".daftarinstansi").removeClass("active");
+			        $(".berita").removeClass("active");
+			        $(".kontak").removeClass("active");
+			        $(".seputarppid").addClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").removeClass("active");
+		      	}else if(pgMenu=="ProfilPPID"){
+		      		$(".beranda").removeClass("active");
+			        $(".tentangkami").removeClass("active");
+			        $(".daftarinstansi").removeClass("active");
+			        $(".berita").removeClass("active");
+			        $(".kontak").removeClass("active");
+			        $(".seputarppid").addClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").removeClass("active");
+		      	}else if(pgMenu=="PelayananPPID"){
+		      		$(".beranda").removeClass("active");
+			        $(".tentangkami").removeClass("active");
+			        $(".daftarinstansi").removeClass("active");
+			        $(".berita").removeClass("active");
+			        $(".kontak").removeClass("active");
+			        $(".seputarppid").addClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").removeClass("active");
+		      	}else if(pgMenu=="InformasiBerkala"){
+		      		$(".beranda").removeClass("active");
+			        $(".tentangkami").removeClass("active");
+			        $(".daftarinstansi").removeClass("active");
+			        $(".berita").removeClass("active");
+			        $(".kontak").removeClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").addClass("active");
+			        $(".daftarinformasi").removeClass("active");
+		      	}else if(pgMenu=="InformasiSertaMerta"){
+		      		$(".beranda").removeClass("active");
+			        $(".tentangkami").removeClass("active");
+			        $(".daftarinstansi").removeClass("active");
+			        $(".berita").removeClass("active");
+			        $(".kontak").removeClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").addClass("active");
+			        $(".daftarinformasi").removeClass("active");
+		      	}else if(pgMenu=="InformasiSetiapSaat"){
+		      		$(".beranda").removeClass("active");
+			        $(".tentangkami").removeClass("active");
+			        $(".daftarinstansi").removeClass("active");
+			        $(".berita").removeClass("active");
+			        $(".kontak").removeClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").addClass("active");
+			        $(".daftarinformasi").removeClass("active");
+		      	}else if(pgMenu=="DaftarInformasi"){
+		      		$(".beranda").removeClass("active");
+			        $(".tentangkami").removeClass("active");
+			        $(".daftarinstansi").removeClass("active");
+			        $(".berita").removeClass("active");
+			        $(".kontak").removeClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").addClass("active");
 		      	}else{
 		      		$(".beranda").removeClass("active");
 			        $(".tentangkami").removeClass("active");
 			        $(".daftarinstansi").removeClass("active");
 			        $(".berita").removeClass("active");
 			        $(".kontak").removeClass("active");
+			        $(".seputarppid").removeClass("active");
+			        $(".jenisinformasi").removeClass("active");
+			        $(".daftarinformasi").removeClass("active");
 		      	}
 	    	}
 
@@ -561,6 +766,7 @@
 		      "use strict";
 		      callPrepareMenu();
 		      ko.applyBindings(hal);
+		      startTime();
 		    });
 		</script>
 	</body>

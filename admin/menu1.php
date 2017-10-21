@@ -17,6 +17,6 @@
                 <li class="mdatauser"><a href="index.php?page=masteruser">Master Data User</a></li>
             </ul>
         </li>
-        <li class="datarequest"><a href="index.php?page=datarequest">Data Request</a></li>
+        <!-- <li class="datarequest"><a href="index.php?page=datarequest">Data Request</a></li> -->
     </ul>
 </div>

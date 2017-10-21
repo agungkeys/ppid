@@ -33,15 +33,17 @@
 	// echo $resid;
 
 	$post = $_POST;
-	$sql = "INSERT INTO skpd (IDSKPD, NAME, DETAIL, LOCATION, ONSEARCH, STATUS)
+	$sql = "INSERT INTO skpd (IDSKPD, NAME, PEJABAT, LOCATION, TELP, FAX, TUGASPOKOK, ONSEARCH, STATUS)
 	VALUES (
 		'".$resid."',
 		'".$post['1']."',
 		'".$post['2']."',
 		'".$post['3']."',
 		'".$post['4']."',
-		'".$post['5']."'
-
+		'".$post['5']."',
+		'".$post['6']."',
+		'".$post['7']."',
+		'".$post['8']."'
 	)";
 	$result = $mysqli->query($sql);
 	$sql = "SELECT * FROM skpd WHERE IDSKPD = '".$resid."'"; 

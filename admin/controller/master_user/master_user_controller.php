@@ -10,13 +10,15 @@ $columns = array(
     1 => 'USERNAME',
     2 => 'FULLNAME', 
     3 => 'USER_EMAIL',
-    4 => 'LEVEL',
-    5 => 'NAME',
-    6 => 'DATECREATE',   
+    4 => 'USER_PASSWORD',
+    5 => 'LEVEL',
+    6 => 'NAME',
+    7 => 'DATECREATE', 
+    8 => 'IDSKPD',  
 );
 
 // getting total number records without any search
-$sql = "SELECT user.USERID, user.USERNAME, user.FULLNAME, user.USER_EMAIL, user.LEVEL, skpd.NAME, user.DATECREATE";
+$sql = "SELECT user.USERID, user.USERNAME, user.FULLNAME, user.USER_EMAIL, user.USER_PASSWORD,user.LEVEL, skpd.NAME, user.DATECREATE, user.IDSKPD";
 $sql.=" FROM user INNER JOIN skpd ON user.IDSKPD = skpd.IDSKPD";
 $query=mysqli_query($conn, $sql) or die("master_user_controller: Get Data User #1");
 $totalData = mysqli_num_rows($query);
@@ -26,13 +28,14 @@ $totalFiltered = $totalData;  // when there is no search parameter then total nu
 
 if( !empty($requestData['search']['value']) ) {
     // if there is a search parameter
-    $sql = "SELECT user.USERID, user.USERNAME, user.FULLNAME, user.USER_EMAIL, user.LEVEL, skpd.NAME, user.DATECREATE";
+    $sql = "SELECT user.USERID, user.USERNAME, user.FULLNAME, user.USER_EMAIL, user.USER_PASSWORD, user.LEVEL, skpd.NAME, user.DATECREATE, user.IDSKPD";
     $sql.=" FROM user INNER JOIN skpd ON user.IDSKPD = skpd.IDSKPD";
     $sql.=" WHERE user.USERID LIKE '".$requestData['search']['value']."%' ";
     // $requestData['search']['value'] contains search parameter
     $sql.=" OR user.USERNAME LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR user.FULLNAME LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR user.USER_EMAIL LIKE '".$requestData['search']['value']."%' ";
+    $sql.=" OR user.USER_PASSWORD LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR user.LEVEL LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR skpd.NAME LIKE '".$requestData['search']['value']."%' ";
     $query=mysqli_query($conn, $sql) or die("master_user_controller: Get User from Search #2");
@@ -44,7 +47,7 @@ if( !empty($requestData['search']['value']) ) {
     
 } else {    
 
-    $sql = "SELECT user.USERID, user.USERNAME, user.FULLNAME, user.USER_EMAIL, user.LEVEL, skpd.NAME, user.DATECREATE";
+    $sql = "SELECT user.USERID, user.USERNAME, user.FULLNAME, user.USER_EMAIL, user.USER_PASSWORD, user.LEVEL, skpd.NAME, user.DATECREATE, user.IDSKPD";
     $sql.=" FROM user INNER JOIN skpd ON user.IDSKPD = skpd.IDSKPD";
     $sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."   LIMIT ".$requestData['start']." ,".$requestData['length']." ";
     $query=mysqli_query($conn, $sql) or die("master_user_controller: Get User from Search false #4");
@@ -64,6 +67,7 @@ while( $row=mysqli_fetch_array($query)) {  // preparing an array
     $nestedData[] = $row["USERNAME"];
     $nestedData[] = $row["FULLNAME"];
     $nestedData[] = $row["USER_EMAIL"];
+    $nestedData[] = base64_decode($row["USER_PASSWORD"]);
     $nestedData[] = $row["LEVEL"];
     $nestedData[] = $row["NAME"];
     // $nestedData[] = $row["NamaKB"];
@@ -72,12 +76,12 @@ while( $row=mysqli_fetch_array($query)) {  // preparing an array
     
     if($delval == "Super Admin"){
         $delvalres = "<td><center>
-                     <button data-toggle='tooltip' title='Ubah' class='btn btn-warning btn-sm btn-outline' onclick='us.editUser(\"".$row['USERID']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
+                     <button data-toggle='tooltip' title='Ubah' class='btn btn-warning btn-sm btn-outline' onclick='us.editUser(\"".$row['USERID']."\", \"".$row['USERNAME']."\", \"".$row['FULLNAME']."\", \"".$row['USER_EMAIL']."\", \"".base64_decode($row["USER_PASSWORD"])."\", \"".$row['LEVEL']."\", \"".$row['IDSKPD']."\", \"".$row['NAME']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
                      </center></td>";
     }else{
         $delvalres = "<td><center>
-                     <button data-toggle='tooltip' title='Ubah' class='btn btn-warning btn-sm btn-outline' onclick='us.editUser(\"".$row['USERID']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
-                     <button data-toggle='tooltip' title='Hapus' class='btn btn-danger btn-sm btn-outline' onclick='us.removeUser(\"".$row['USERID']."\")'> <i class='glyphicon glyphicon-trash'></i> </button>
+                     <button data-toggle='tooltip' title='Ubah' class='btn btn-warning btn-sm btn-outline' onclick='us.editUser(\"".$row['USERID']."\", \"".$row['USERNAME']."\", \"".$row['FULLNAME']."\", \"".$row['USER_EMAIL']."\", \"".base64_decode($row["USER_PASSWORD"])."\", \"".$row['LEVEL']."\", \"".$row['IDSKPD']."\", \"".$row['NAME']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
+                     <button data-toggle='tooltip' title='Hapus' class='btn btn-danger btn-sm btn-outline' onclick='us.removeUser(\"".$row['USERID']."\", \"".$row['USERNAME']."\")'> <i class='glyphicon glyphicon-trash'></i> </button>
                      </center></td>";
     }
     $nestedData[] = $delvalres;  

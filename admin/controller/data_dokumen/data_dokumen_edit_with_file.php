@@ -5,6 +5,8 @@
 	$kat 		= $_POST['katskpd']; 
 	$nmdok 		= $_POST['namadokumen']; 
 	$rangkuman 	= $_POST['rangkuman']; 
+	$jenisdok 	= $_POST['jenisdokumen']; 
+	$jenisdoknm = $_POST['jenisname']; 
 	$ft 		= $_FILES['file']['name'];
 	$tm 		= $_FILES['file']['tmp_name'];
 	$us 		= $_POST['user'];
@@ -35,6 +37,8 @@
 		IDSKPD     		= '".$kat."', 
 		NAMADOKUMEN    	= '".$nmdok."', 
 		RANGKUMANDOKUMEN = '".$rangkuman."', 
+		JENIS 			= '".$jenisdok."', 
+		JENISNAME 		= '".$jenisdoknm."', 
 		FILE         	= '".$fotosimpan."', 
 		USER        	= '".$us."', 
 		DATECREATE 		= '".$date."' WHERE IDDOKUMEN = '".$iddokumen."'";
@@ -44,4 +48,4 @@
 	$data = $result->fetch_assoc();
 	// echo json_encode($data);
 	
-?>
+?> 

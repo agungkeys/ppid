@@ -1,0 +1,14 @@
+-sosial
+-koperasi
+-pu
+
+
+-Dinas Sosial = sosial
+
+-Dinas Join = sosial, pu
+
+
+=============================================
+
+1. Input Dokumen / Berita not refresh, only field form judul, dan isi.
+2. 

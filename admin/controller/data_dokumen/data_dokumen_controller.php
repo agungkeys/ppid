@@ -19,32 +19,48 @@ $columns = array(
     1 => 'NAME',
     2 => 'NAMADOKUMEN', 
     3 => 'RANGKUMANDOKUMEN',
-    4 => 'FILE',
-    5 => 'USER',
-    6 => 'DATECREATE',
-    7 => 'IDSKPD'
+    4 => 'JENIS',
+    5 => 'JENISNAME',
+    6 => 'FILE',
+    7 => 'USER',
+    8 => 'DATECREATE',
+    9 => 'IDSKPD'
 );
 
 // getting total number records without any search
-$sql = "SELECT dokumen.IDDOKUMEN, skpd.NAME, dokumen.NAMADOKUMEN, dokumen.RANGKUMANDOKUMEN, dokumen.FILE, dokumen.USER, dokumen.DATECREATE, dokumen.IDSKPD";
+$sql = "SELECT dokumen.IDDOKUMEN, skpd.NAME, dokumen.NAMADOKUMEN, dokumen.RANGKUMANDOKUMEN, dokumen.JENIS, dokumen.JENISNAME, dokumen.FILE, dokumen.USER, dokumen.DATECREATE, dokumen.IDSKPD";
 $sql.=" FROM dokumen INNER JOIN skpd ON dokumen.IDSKPD = skpd.IDSKPD";
 $query=mysqli_query($conn, $sql) or die("master_dokumen_controller: Get Data Dokumen #1");
 $totalData = mysqli_num_rows($query);
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
+$doklevel   = $requestData['level'];
+$dokidskpd  = $requestData['idskpd'];
+$dokval1     = "";
+$dokval2     = "";
+if($doklevel != "Super Admin"){
+    $dokval1 = "dokumen.IDSKPD=\"".$dokidskpd."\" AND";
+    $dokval2 = "WHERE dokumen.IDSKPD=\"".$dokidskpd."\"";
+}else{
+
+}
+
+
 
 if( !empty($requestData['search']['value']) ) {
     // if there is a search parameter
-    $sql = "SELECT dokumen.IDDOKUMEN, skpd.NAME, dokumen.NAMADOKUMEN, dokumen.RANGKUMANDOKUMEN, dokumen.FILE, dokumen.USER, dokumen.DATECREATE, dokumen.IDSKPD";
+    $sql = "SELECT dokumen.IDDOKUMEN, skpd.NAME, dokumen.NAMADOKUMEN, dokumen.RANGKUMANDOKUMEN, dokumen.JENIS, dokumen.JENISNAME, dokumen.FILE, dokumen.USER, dokumen.DATECREATE, dokumen.IDSKPD";
     $sql.=" FROM dokumen INNER JOIN skpd ON dokumen.IDSKPD = skpd.IDSKPD";
-    $sql.=" WHERE skpd.NAME LIKE '".$requestData['search']['value']."%' ";
+    $sql.=" WHERE ".$dokval1." skpd.NAME LIKE '".$requestData['search']['value']."%' ";
     // $requestData['search']['value'] contains search parameter
     $sql.=" OR dokumen.NAMADOKUMEN LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR dokumen.RANGKUMANDOKUMEN LIKE '".$requestData['search']['value']."%' ";
+    $sql.=" OR dokumen.JENISNAME LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR dokumen.FILE LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR dokumen.USER LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR dokumen.DATECREATE LIKE '".$requestData['search']['value']."%' ";
+    $sql.=" OR dokumen.IDSKPD LIKE 'S0005%' ";
     $query=mysqli_query($conn, $sql) or die("master_dokumen_controller: Get Dokumen from Search #2");
     $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result without limit in the query 
 
@@ -54,8 +70,8 @@ if( !empty($requestData['search']['value']) ) {
     
 } else {    
 
-    $sql = "SELECT dokumen.IDDOKUMEN, skpd.NAME, dokumen.NAMADOKUMEN, dokumen.RANGKUMANDOKUMEN, dokumen.FILE, dokumen.USER, dokumen.DATECREATE, dokumen.IDSKPD";
-    $sql.=" FROM dokumen INNER JOIN skpd ON dokumen.IDSKPD = skpd.IDSKPD";
+    $sql = "SELECT dokumen.IDDOKUMEN, skpd.NAME, dokumen.NAMADOKUMEN, dokumen.RANGKUMANDOKUMEN, dokumen.JENIS, dokumen.JENISNAME, dokumen.FILE, dokumen.USER, dokumen.DATECREATE, dokumen.IDSKPD";
+    $sql.=" FROM dokumen INNER JOIN skpd ON dokumen.IDSKPD = skpd.IDSKPD ".$dokval2."  ";
     $sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."   LIMIT ".$requestData['start']." ,".$requestData['length']." ";
     $query=mysqli_query($conn, $sql) or die("master_artikel_controller: Get Artikel from Search false #4");
     // $num_rows = mysql_num_rows($query);
@@ -74,16 +90,18 @@ while( $row=mysqli_fetch_array($query)) {  // preparing an array
     $nestedData[] = $row["NAMADOKUMEN"];
     $isioriginal = $row["RANGKUMANDOKUMEN"];
     $isiflat  = strip_tags($isioriginal);
-    $isilimit = limit_text($isiflat, 10);
-    $isi = "<span>".$isilimit."&nbsp;<a href='#' onclick='dok.previewisimodal(\"".$row["NAMADOKUMEN"]."\", \"".$row["RANGKUMANDOKUMEN"]."\")'><i class='fa fa-info-circle'></i></a></span>";
+    $isilimit = limit_text($isiflat, 8);
+    $isi = "<span>".$isilimit."&nbsp;<a href='#' onclick='dok.previewisimodal(\"".$row["IDDOKUMEN"]."\", \"".$row["NAMADOKUMEN"]."\")'><i class='fa fa-info-circle'></i></a></span>";
     $nestedData[] = $isi;
     // $nestedData[] = "<td><center><img class='img-zoom' src=\"".$row["IMG"]."\" width=60></center></td>";
     $nestedData[] = "<a target='_blank' href=\"".$row["FILE"]."\" data-toggle='tooltip' title='Download File' class='btn btn-primary btn-sm btn-outline'><i class='glyphicon glyphicon-save-file'></i> Download</a>";
+    $nestedData[] = $row["JENISNAME"];
     $nestedData[] = $row["USER"];
-    $nestedData[] = $row["DATECREATE"];
+    $datefor= date("d F Y", strtotime($row["DATECREATE"]));
+    $nestedData[] = $datefor;
    
     $nestedData[] = "<td><center>
-                     <button data-original-title='Test' data-placement='top' data-toggle='tooltip' class='btn btn-warning btn-sm btn-outline tooltips' onclick='dok.editDokumen(\"".$row['IDDOKUMEN']."\", \"".$row['IDSKPD']."\", \"".$row['NAME']."\", \"".$row['NAMADOKUMEN']."\", \"".$row['RANGKUMANDOKUMEN']."\", \"".$row['FILE']."\", \"".$row['USER']."\", \"".$row['DATECREATE']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
+                     <button data-original-title='Test' data-placement='top' data-toggle='tooltip' class='btn btn-warning btn-sm btn-outline tooltips' onclick='dok.editDokumen(\"".$row['IDDOKUMEN']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
                      <button data-toggle='tooltip' title='Hapus' class='btn btn-danger btn-sm btn-outline' onclick='dok.removeDokumen(\"".$row['IDDOKUMEN']."\", \"".$row['NAME']."\")'> <i class='glyphicon glyphicon-trash'></i> </button>
                      </center></td>";
 

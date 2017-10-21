@@ -1,12 +1,17 @@
 <?php
   require '../../engine/db_config.php';
+
+ // idx: id, 1: namaskpd, 2: namapejabat, 3: almt, 4: telp, 5: fax, 6: cex, 7: tugaspokok, 8: status
               
   $id   = $_POST["idx"];
   $nm   = $_POST["1"];
-  $dtl  = $_POST["2"];
-  $loc  = $_POST["3"];
-  $onsearc = $_POST["4"];
-  $sts  = $_POST["5"];
+  $nmpjbt = $_POST["2"];
+  $loc    = $_POST["3"];
+  $telp   = $_POST["4"];
+  $fax    = $_POST["5"];
+  $onsearc  = $_POST["6"];
+  $tp       = $_POST["7"];
+  $sts      = $_POST["8"];
 
   $timezone = "Asia/Singapore";
   date_default_timezone_set($timezone);
@@ -14,9 +19,12 @@
   $sql = "UPDATE skpd SET 
     IDSKPD = '".$id."',
     NAME = '".$nm."',
-    DETAIL = '".$dtl."',
+    PEJABAT = '".$nmpjbt."',
     LOCATION = '".$loc."',
+    TELP = '".$telp."',
+    FAX = '".$fax."',
     ONSEARCH = '".$onsearc."',
+    TUGASPOKOK = '".$tp."',
     STATUS = '".$sts."',
     DATECREATE = '".$date."' WHERE IDSKPD = '".$id."'";
   $result = $mysqli->query($sql);

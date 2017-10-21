@@ -417,7 +417,7 @@ b {
 }
 
 p {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 h1,h2,h3,h4,h5,h6 { font-weight: 600; color: #222; margin-top: 20px; margin-bottom: 10px; }
@@ -469,7 +469,7 @@ h4 { font-size: 14px; }
 /* Top
 -------------------------------------------------------------- */
 .top {
-	background-color: #333;
+	background-color: #4B77BE;
 	color: #ffffff;
 }
 
@@ -556,7 +556,7 @@ ul.flat-social li.linkedin a {
 
 .info-top-right a.appoinment {
 	display: inline-block;
-    background-color: #2691e4;
+    background-color: #555;
     text-transform: uppercase;
     font-weight: 600;
     font-family: "Poppins",sans-serif;
@@ -638,7 +638,7 @@ ul.flat-social li.linkedin a {
 }
 
 #mainnav > ul > li.active > a {
-	color: #2691e4;
+	color: #ccc;
 	position: relative;
 }
 
@@ -648,7 +648,7 @@ ul.flat-social li.linkedin a {
     bottom: 30px;
     width: 100%;
     height: 2px;
-    background-color: #2691e4;
+    background-color: #ccc;
     content: "";
 }
 
@@ -658,7 +658,7 @@ ul.flat-social li.linkedin a {
     bottom: 30px;
     width: 0;
     height: 2px;
-    background-color: #2691e4;
+    background-color: #ccc;
     content: "";
     -webkit-transition: all 0.3s ease 0s;
 	-moz-transition: all 0.3s ease 0s;
@@ -683,7 +683,7 @@ ul.flat-social li.linkedin a {
 	left: 0;
 	top: 150%;
 	width: 250px;
-	background-color: #333;
+	background-color: #0073e5;
 	z-index: 9999;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 	filter: alpha(opacity=0);
@@ -720,7 +720,7 @@ ul.flat-social li.linkedin a {
 }
 
 #mainnav ul.submenu > li {
-	border-top: 1px solid #2d374a;
+	border-top: 1px solid #0073e5;
 }
 
 #mainnav ul.submenu > li:first-child {
@@ -742,13 +742,13 @@ ul.flat-social li.linkedin a {
 }
 
 #mainnav ul.submenu > li > a:hover {
-	background: #2691e4;
+	background: #2d374a ;
 	color: #fff;
 }
 
 #mainnav > ul > li > a:hover,
 #mainnav > ul > li.home > a {
-	color: #2691e4 ;
+	color: #ccc ;
 	position: relative;
 }
 
@@ -1043,9 +1043,10 @@ article .content-post {
 ul.entry-meta {
 	list-style: none;
     margin: 0;
-    color: #999;
+    color: #0073e5;
     float: left;
     margin-top: -2px;
+    margin-bottom: 10px;
     max-width: 85%;
 }
 
@@ -1119,7 +1120,7 @@ ul.flat-pagination li.next-page a {
 }
 
 ul.flat-pagination li.next-page a i {
-	padding-left: 5px;
+	padding-left: 0px;
 }
 
 ul.flat-pagination li a:hover,
@@ -1463,14 +1464,14 @@ article.blog-single:after {
 /* Footer
 -------------------------------------------------------------- */
 .footer {
-    background-color: #222;
-    color: #cecece;
+    background-color: #0073e5;
+    color: #fff;
 }
 
 .footer-widgets {
     overflow: hidden;
-    padding: 64px 0 74px;
-    color: #888;
+    padding: 15px 0 30px;
+    color: #fff;
     letter-spacing: -0.5px;
 }
 
@@ -1479,17 +1480,17 @@ article.blog-single:after {
 }
 
 .footer-widgets ul li a {
-    color: #cecece;
+    color: #fff;
     line-height: 36px;
     letter-spacing: -0.5px;
 }
 
 .footer-widgets {
-	color: #cecece;
+	color: #fff;
 }
 
 .footer-widgets ul li a:hover {
-	color: #2691e4;
+	color: #cecece;
 	padding-left: 5px;
 }
 
@@ -1622,8 +1623,8 @@ article.blog-single:after {
 /* Footer Bottom
 -------------------------------------------------------------- */
 .footer-bottom {
-	background-color: #333;
-	padding: 27px 0;
+	background-color: #4B77BE;
+	padding: 5px 0;
 }
 
 .footer-bottom .copyright {
@@ -1633,7 +1634,7 @@ article.blog-single:after {
 
 .footer-bottom .copyright p {
 	margin-bottom: 0;
-	color: #cecece;
+	color: #fff;
 	line-height: 36px;
 }
 
@@ -2463,4 +2464,46 @@ ul#dinas li:hover {
     text-decoration:none;
     transition: all 0.3s ease-in-out 0s;
     padding-top: 12px;
+}
+
+h2.entry-title{
+	margin-top: 0px;
+}
+
+.title-left{
+	color: #fff; 
+	background: #2691e4; 
+	margin-left: -25px; 
+	height: 40px; 
+	padding-top: 7px;
+}
+
+.title-left span{
+	padding-left: 25px;
+}
+
+thead{
+	background: #2691e4;
+    color: #fff;
+}
+
+.title-daftarinstansi{
+	color: #fff; 
+	background: #2691e4; 
+	height: 40px; 
+	padding: 7px 0 0 5px;
+	text-align: center;
+}
+
+.title-daftarinstansi span{
+	padding-left: 5px;
+}
+
+
+
+.title-daftarinstansi-isi{
+	color: #000;
+	background: #efefef;
+	padding: 10px 7px 7px 7px;
+	/*font-weight: bold;*/
 }

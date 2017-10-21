@@ -4,6 +4,8 @@
 	$kat = $_POST['katskpd']; 
 	$jd = $_POST['judul']; 
 	$is = $_POST['isi']; 
+	$jns = $_POST['jenisdok']; 
+	$jnsnm = $_POST['jenisdokname']; 
 	$ft = $_FILES['foto']['name'];
 	$tm = $_FILES['foto']['tmp_name'];
 	$us = $_POST['user'];
@@ -32,6 +34,8 @@
 		IDSKPD,
 		NAMADOKUMEN,
 		RANGKUMANDOKUMEN,
+		JENIS,
+		JENISNAME,
 		FILE,
 		USER
 	)
@@ -39,6 +43,8 @@
 		'".$kat."',
 		'".$jd."',
 		'".$is."',
+		'".$jns."',
+		'".$jnsnm."',
 		'".$fotosimpan."',
 		'".$us."'
 	)";

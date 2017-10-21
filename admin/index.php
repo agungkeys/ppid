@@ -8,7 +8,7 @@ if(!isset($_SESSION['USER_SESSION']))
 
 include_once 'engine/configdb.php';
 
-$stmt = $db_con->prepare("SELECT * FROM user WHERE USERID=:uid");
+$stmt = $db_con->prepare("SELECT user.USERID, user.USERNAME, user.FULLNAME, user.USER_EMAIL, user.LEVEL, skpd.NAME, user.IDSKPD FROM user INNER JOIN skpd ON user.IDSKPD = skpd.IDSKPD WHERE USERID=:uid");
 $stmt->execute(array(":uid"=>$_SESSION['USER_SESSION']));
 $row=$stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -16,6 +16,7 @@ $usr= $row['USERNAME'];
 $fn= $row['FULLNAME'];
 $level= $row['LEVEL'];
 $loc= $row['IDSKPD'];
+$locname= $row['NAME'];
 
 ?>
 <!DOCTYPE html>
@@ -30,12 +31,16 @@ $loc= $row['IDSKPD'];
     <link rel="shortcut icon" href="images/favicon.html">
 
     <title>Admin PPID</title>
+    <link href="logo.png" rel="icon">
+    <link href="logo.png" rel="icon">
+    <link href="favicon.ico" rel="shortcut icon">
 
     <!--Core CSS -->
     <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-reset.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/bootstrap-switch.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap-switch.css"> -->
+    <link rel="stylesheet" href="plugin/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css">
 
     <link href="plugin/datatables/dataTables.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
@@ -71,13 +76,17 @@ $loc= $row['IDSKPD'];
     <script src="plugin/knockoutjs/knockout-3.4.2.js" type="text/javascript"></script>
     <script type="text/javascript">
       var page = {
-        pageDestination:ko.observable("")
+        pageDestination:ko.observable(""),
+        user:ko.observable(""),
+        level:ko.observable(""),
+        skpd:ko.observable(""),
+        skpdname:ko.observable(""),
+        loader:ko.observable(false)
       };
     </script>
 </head>
 
   <body class="full-width">
-
   <section id="container" class="hr-menu">
       <!--header start-->
       <header class="header fixed-top">
@@ -96,29 +105,13 @@ $loc= $row['IDSKPD'];
               </div>
               <!--logo end-->
               <!--logo end-->
-              <div class="horizontal-menu navbar-collapse collapse ">
-                  <ul class="nav navbar-nav">
-                      <li class="beranda"><a href="index.php?page=beranda">Beranda</a></li>
-                      <li class="dropdown">
-                          <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">Input Data <b class=" fa fa-angle-down"></b></a>
-                          <ul class="dropdown-menu">
-                              <li class="dataartikel"><a href="index.php?page=dataartikel">Data Artikel</a></li>
-                              <li class="datadokumen"><a href="index.php?page=datadokumen">Data Dokumen</a></li>
-                              
-                          </ul>
-                      </li>
-                      <li class="dropdown">
-                          <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">Master Data <b class=" fa fa-angle-down"></b></a>
-                          <ul class="dropdown-menu">
-                              <li class="mdatakategoriskpd"><a href="index.php?page=masterkategoriskpd">Master Data Kategori SKPD</a></li>
-                              <li class="mdataskpd"><a href="index.php?page=masterskpd">Master Data SKPD</a></li>
-                              <li class="mdatauser"><a href="index.php?page=masteruser">Master Data User</a></li>
-                          </ul>
-                      </li>
-                      <li class="datarequest"><a href="index.php?page=datarequest">Data Request</a></li>
-                  </ul>
-
-              </div>
+              <?php
+                if($level != "Super Admin"){
+                  include'menu2.php';
+                }else{
+                  include'menu1.php';
+                }
+              ?>
               <div class="top-nav hr-top-nav">
                   <ul class="nav pull-right top-menu">
                       <!-- <li>
@@ -129,6 +122,10 @@ $loc= $row['IDSKPD'];
                           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                               <img alt="" src="images/avatar1_small.jpg">
                               <span class="username"><?php echo $fn; ?></span>
+                              <span class="usr" style="display: none"><?php echo $usr; ?></span>
+                              <span class="lvl" style="display: none"><?php echo $level; ?></span>
+                              <span class="loc" style="display: none"><?php echo $loc; ?></span>
+                              <span class="locname" style="display: none"><?php echo $locname; ?></span>
                               <b class="caret"></b>
                           </a>
                           <ul class="dropdown-menu extended logout">
@@ -176,6 +173,12 @@ $loc= $row['IDSKPD'];
       </footer>
       <!--footer end-->
   </section>
+  <div id="loader" data-bind="visible: page.loader">
+    <div class="loader-area">
+      <img class="loader-img" src="images/puff.svg">
+      <div class="loader-text">Loading Please Wait...</div>
+    </div>
+  </div>
   <style type="text/css">
     .select2-dropdown{
       border: 1px solid #2691e4;
@@ -185,6 +188,53 @@ $loc= $row['IDSKPD'];
     }
     .select2-container--default.select2-container--focus .select2-selection--multiple {
         border: 1px solid #2691e4 !important;
+    }
+    #loader{
+      width: 100%;
+      height: 100%;
+      background-color:  rgba(255, 255, 255, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+     
+    }
+    .loader-area{
+      padding-top: 12%;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .loader-img{
+      width: 10%;
+    }
+    .loader-text {
+      -webkit-animation: fade-in 0.80s linear infinite alternate;
+      -moz-animation: fade-in 0.80s linear infinite alternate;
+      animation: fade-in 0.80s linear infinite alternate;
+    }
+    @-moz-keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      65% {
+        opacity: 1;
+      }
+    }
+    @-webkit-keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      65% {
+        opacity: 1;
+      }
+    }
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      65% {
+        opacity: 1;
+      }
     }
 
   </style>
@@ -198,7 +248,8 @@ $loc= $row['IDSKPD'];
 
   <script src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
   <script src="js/jquery.nicescroll.js"></script>
-  <script src="js/bootstrap-switch.js"></script>
+  <!-- <script src="js/bootstrap-switch.js"></script> -->
+  <script type="text/javascript" src="plugin/bootstrap-switch/js/bootstrap-switch.min.js"></script>
   <!-- Moment js -->
   <script src="plugin/moment.min.js" type="text/javascript"></script>
 
@@ -226,10 +277,13 @@ $loc= $row['IDSKPD'];
   <script type="text/javascript" src="js/bootstrap-fileupload/bootstrap-fileupload.js"></script>
   
   <!--common script init for all pages-->
+  <!-- <script src="js/flot-chart/jquery.flot.tooltip.min.js"></script> -->
   <script src="js/scripts.js"></script>
   <script src="js/toggle-init.js"></script>
   
   <script type="text/javascript">
+    
+
     $.fn.capitalize = function () {
       $.each(this, function () {
           var split = this.value.split(' ');
@@ -241,6 +295,15 @@ $loc= $row['IDSKPD'];
       return this;
     };
     function callStyleMenu(){
+      var usrnm = $(".usr").text();
+      var lvl   = $(".lvl").text();
+      var loc   = $(".loc").text();
+      var locname   = $(".locname").text();
+      page.user(usrnm);
+      page.level(lvl);
+      page.skpd(loc);
+      page.skpdname(locname);
+
       var pgMenu = page.pageDestination();
       // console.log(pgMenu)
       
@@ -277,9 +340,9 @@ $loc= $row['IDSKPD'];
         $(".mdatauser").removeClass("active");
         $(".datarequest").removeClass("active");
       }else if(pgMenu=="DataDokumen"){
+        $(".datadokumen").addClass("active");
         $(".beranda").removeClass("active");
         $(".dataartikel").removeClass("active");
-        $(".datadokumen").addClass("active");
         $(".mdatakategoriskpd").removeClass("active");
         $(".mdataskpd").removeClass("active");
         $(".mdatauser").removeClass("active");

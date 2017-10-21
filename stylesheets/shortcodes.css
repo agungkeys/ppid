@@ -1051,7 +1051,7 @@ label.error {
 
 /* Nav Header Style2 */
 .nav.header-style2 {
-	background: #333;
+	background: #0073e5;
 }
 
 .nav.header-style2 .nav-wrap {
@@ -1340,7 +1340,7 @@ label.error {
 }
 
 .main-about .sidebar .widget {
-	margin-bottom: 27px;
+	margin-bottom: 0px;
 }
 
 .main-about .sidebar .widget-title {

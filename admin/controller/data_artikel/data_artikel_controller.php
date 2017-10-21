@@ -33,12 +33,24 @@ $totalData = mysqli_num_rows($query);
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
+$doklevel   = $requestData['level'];
+$dokidskpd  = $requestData['idskpd'];
+$dokval1     = "";
+$dokval2     = "";
+if($doklevel != "Super Admin"){
+    $dokval1 = "artikel.IDSKPD=\"".$dokidskpd."\" AND";
+    $dokval2 = "WHERE artikel.IDSKPD=\"".$dokidskpd."\"";
+}else{
+
+}
+
+
 
 if( !empty($requestData['search']['value']) ) {
     // if there is a search parameter
     $sql = "SELECT artikel.IDARTIKEL, skpd.NAME, artikel.JUDULARTIKEL, artikel.ISIARTIKEL, artikel.IMG, artikel.USER, artikel.DATECREATE, artikel.IDSKPD";
     $sql.=" FROM artikel INNER JOIN skpd ON artikel.IDSKPD = skpd.IDSKPD";
-    $sql.=" WHERE skpd.NAME LIKE '".$requestData['search']['value']."%' ";
+    $sql.=" WHERE ".$dokval1." skpd.NAME LIKE '".$requestData['search']['value']."%' ";
     // $requestData['search']['value'] contains search parameter
     $sql.=" OR artikel.JUDULARTIKEL LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR artikel.IMG LIKE '".$requestData['search']['value']."%' ";
@@ -54,7 +66,7 @@ if( !empty($requestData['search']['value']) ) {
 } else {    
 
     $sql = "SELECT artikel.IDARTIKEL, skpd.NAME, artikel.JUDULARTIKEL, artikel.ISIARTIKEL, artikel.IMG, artikel.USER, artikel.DATECREATE, artikel.IDSKPD";
-    $sql.=" FROM artikel INNER JOIN skpd ON artikel.IDSKPD = skpd.IDSKPD";
+    $sql.=" FROM artikel INNER JOIN skpd ON artikel.IDSKPD = skpd.IDSKPD ".$dokval2."  ";
     $sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."   LIMIT ".$requestData['start']." ,".$requestData['length']." ";
     $query=mysqli_query($conn, $sql) or die("master_artikel_controller: Get Artikel from Search false #4");
     // $num_rows = mysql_num_rows($query);
@@ -74,14 +86,15 @@ while( $row=mysqli_fetch_array($query)) {  // preparing an array
     $isioriginal = $row["ISIARTIKEL"];
     $isiflat  = strip_tags($isioriginal);
     $isilimit = limit_text($isiflat, 10);
-    $isi = "<span>".$isilimit."&nbsp;<a href='#' onclick='ar.previewisimodal(\"".$row["JUDULARTIKEL"]."\", \"".$row["ISIARTIKEL"]."\")'><i class='fa fa-info-circle'></i></a></span>";
+    $isi = "<span>".$isilimit."&nbsp;<a href='#' onclick='ar.previewisimodal(\"".$row["IDARTIKEL"]."\", \"".$row["JUDULARTIKEL"]."\")'><i class='fa fa-info-circle'></i></a></span>";
     $nestedData[] = $isi;
     $nestedData[] = "<td><center><img class='img-zoom' src=\"".$row["IMG"]."\" width=60></center></td>";
     $nestedData[] = $row["USER"];
-    $nestedData[] = $row["DATECREATE"];
+    $datefor= date("d F Y", strtotime($row["DATECREATE"]));
+    $nestedData[] = $datefor;
    
     $nestedData[] = "<td><center>
-                     <button data-original-title='Test' data-placement='top' data-toggle='tooltip' class='btn btn-warning btn-sm btn-outline tooltips' onclick='ar.editArtikel(\"".$row['IDARTIKEL']."\", \"".$row['IDSKPD']."\", \"".$row['NAME']."\", \"".$row['JUDULARTIKEL']."\", \"".$row['ISIARTIKEL']."\", \"".$row['IMG']."\", \"".$row['USER']."\", \"".$row['DATECREATE']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
+                     <button data-original-title='Test' data-placement='top' data-toggle='tooltip' class='btn btn-warning btn-sm btn-outline tooltips' onclick='ar.editArtikel(\"".$row['IDARTIKEL']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
                      <button data-toggle='tooltip' title='Hapus' class='btn btn-danger btn-sm btn-outline' onclick='ar.removeArtikel(\"".$row['IDARTIKEL']."\", \"".$row['JUDULARTIKEL']."\")'> <i class='glyphicon glyphicon-trash'></i> </button>
                      </center></td>";
 

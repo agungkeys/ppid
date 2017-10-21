@@ -1,150 +1,90 @@
 <script type="text/javascript">
 	hal.page("Beranda");
 </script>
+<style type="text/css">
+	.flat-pagination>>li>>.next-page>>a>>i{
+		padding-left: 0px;
+	}
+</style>
 <div class="content-area">
-	<div class="post-wrap">
-		<article class="blog-post">
+	<div id="posts_content" class="post-wrap">
+	<?php
+	include('admin/controller/artikel_home/halaman.php');
+	include('admin/engine/db_config.php');
+	$limit = 3;
+
+	//function limit for isi artikel
+	function limit_text($text, $limit) {
+	  if (str_word_count($text, 0) > $limit) {
+	      $words = str_word_count($text, 2);
+	      $pos = array_keys($words);
+	      $text = substr($text, 0, $pos[$limit]) . '  ';
+	  }
+	  return $text;
+	}
+
+	//Mendapatkan jumlah baris
+	$queryNum = $mysqli->query("SELECT COUNT(*) as postNum FROM artikel");
+    $resultNum = $queryNum->fetch_assoc();
+    $rowCount = $resultNum['postNum'];
+
+    //Menginisialisasi kelas pagination
+    $pagConfig = array('baseURL'=>'admin/controller/artikel_home/ambilData.php', 'totalRows'=>$rowCount, 'perPage'=>$limit, 'contentDiv'=>'posts_content');
+    $pagination =  new Pagination($pagConfig);
+
+    //dapat baris
+    
+
+    $query = $mysqli->query("SELECT artikel.IDARTIKEL, skpd.NAME, artikel.JUDULARTIKEL, artikel.ISIARTIKEL, artikel.IMG, artikel.USER, artikel.DATECREATE, artikel.IDSKPD FROM artikel INNER JOIN skpd ON artikel.IDSKPD = skpd.IDSKPD ORDER BY artikel.IDARTIKEL DESC LIMIT $limit");
+
+
+    if($query->num_rows > 0){ ?>
+    	<?php
+            while($row = $query->fetch_assoc()){ 
+                $postID = $row['IDARTIKEL'];
+                $imgc	= $row['IMG'];
+                $imgcj	= substr($imgc, 2);
+                $datefor= date("d F Y", strtotime($row["DATECREATE"]));
+        ?>
+        <article class="blog-post">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="col-md-12">
 						<div class="entry-post">
 							<h2 class="entry-title">
-								<a href="#" title="">Example Articel 1</a>
+								<a title=""><?php echo $row["JUDULARTIKEL"]; ?></a>
 							</h2>
 							<ul class="entry-meta">
+								
 								<li class="post-date">
-									May 19, 2017
+									<i class="fa fa-calendar"></i>&nbsp;<?php echo $datefor; ?>
 								</li>
-								<li class="post-author">
-									<span>By <a href="#" title="">admin</a></span>
-								</li>
+								
 								<li class="post-categories">
-									<a href="#" title="">services Air Freight</a>
+									<span><i class="fa fa-institution"></i> <a title=""><?php echo $row["NAME"]; ?></a></span>
 								</li>
 							</ul>
-							<!-- <div class="clearfix">
-							</div> -->
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="featured-post">
-							<a href="#" title="">
-								<img src="images/blog/blog-03.jpg" alt="">
+							<a title="">
+								<?php echo"<img class='img-zoom' src='admin/".$imgcj."' >"; ?>
 							</a>
-						</div><!-- /.featured-post -->
-					</div>
-					<div class="col-md-8">
-						<div class="content-post">
-							<p>
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into. <a href="index.php?page=detailberita" style="color: #2691e4">read more...</a>
-							</p>
-							<!-- <div class="button-post">
-								<a href="blog-single.html" title="">Read More</a>
-							</div> -->
-						</div><!-- /.content-post -->
-					</div>
-				</div>
-			</div>
-		</article><!-- /.blog-post -->
-		<article class="blog-post">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="col-md-12">
-						<div class="entry-post">
-							<h2 class="entry-title">
-								<a href="#" title="">Example Articel 2</a>
-							</h2>
-							<ul class="entry-meta">
-								<li class="post-date">
-									May 19, 2017
-								</li>
-								<li class="post-author">
-									<span>By <a href="#" title="">admin</a></span>
-								</li>
-								<li class="post-categories">
-									<a href="#" title="">services Air Freight</a>
-								</li>
-							</ul>
-							<!-- <div class="clearfix">
-							</div> -->
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="featured-post">
-							<a href="#" title="">
-								<img src="images/blog/blog-02.jpg" alt="">
-							</a>
-						</div><!-- /.featured-post -->
-					</div>
 					<div class="col-md-8">
 						<div class="content-post">
 							<p>
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into. <a href="index.php?page=detailberita" style="color: #2691e4">read more...</a>
+								<?php echo limit_text($row["ISIARTIKEL"], 75)."<a href='index.php?page=detailberita&idberita=".$row["IDARTIKEL"]."' style='color: #2691e4' target='_blank'>read more...</a>"; ?>
 							</p>
-							<!-- <div class="button-post">
-								<a href="blog-single.html" title="">Read More</a>
-							</div> -->
-						</div><!-- /.content-post -->
-					</div>
-				</div>
-			</div>
-		</article><!-- /.blog-post -->
-		<article class="blog-post">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="col-md-12">
-						<div class="entry-post">
-							<h2 class="entry-title">
-								<a href="#" title="">Example Articel 3</a>
-							</h2>
-							<ul class="entry-meta">
-								<li class="post-date">
-									May 19, 2017
-								</li>
-								<li class="post-author">
-									<span>By <a href="#" title="">admin</a></span>
-								</li>
-								<li class="post-categories">
-									<a href="#" title="">services Air Freight</a>
-								</li>
-							</ul>
-							<!-- <div class="clearfix">
-							</div> -->
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="featured-post">
-							<a href="#" title="">
-								<img src="images/blog/blog-03.jpg" alt="">
-							</a>
-						</div><!-- /.featured-post -->
-					</div>
-					<div class="col-md-8">
-						<div class="content-post">
-							<p>
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into. <a href="index.php?page=detailberita" style="color: #2691e4">read more...</a>
-							</p>
-							<!-- <div class="button-post">
-								<a href="blog-single.html" title="">Read More</a>
-							</div> -->
-						</div><!-- /.content-post -->
-					</div>
 				</div>
 			</div>
-		</article><!-- /.blog-post -->
-		
-		<div class="paging-navination">
-			<ul class="flat-pagination">
-				<li class="active">
-					<a href="#" title="">1</a>
-				</li>
-				<li>
-					<a href="#" title="">2</a>
-				</li>
-				<li class="next-page">
-					<a href="#" title="">Next<i class="fa fa-angle-double-right"></i></a>
-				</li>
-			</ul><!-- /.flat-pagination -->
-		</div><!-- /.paging-navigation -->
-	</div><!-- /.post-wrap -->
-</div><!-- /.content-area -->
+		</article>
+        <?php } ?>
+        <?php echo $pagination->createLinks(); ?>
+    <?php } ?>
+	</div>
+</div>

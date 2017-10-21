@@ -8,15 +8,18 @@ $columns = array(
 // datatable column index  => database column name
     0 => 'IDSKPD',
     1 => 'NAME',
-    2 => 'DETAIL', 
+    2 => 'PEJABAT',
     3 => 'LOCATION',
-    4 => 'ONSEARCH',
-    5 => 'STATUS',
-    6 => 'DATECREATE',   
+    4 => 'TELP',
+    5 => 'FAX',
+    6 => 'TUGASPOKOK',
+    7 => 'ONSEARCH',
+    8 => 'STATUS',
+    9 => 'DATECREATE',   
 );
 
 // getting total number records without any search
-$sql = "SELECT IDSKPD, NAME, DETAIL, LOCATION, ONSEARCH, STATUS, DATECREATE";
+$sql = "SELECT IDSKPD, NAME, PEJABAT, LOCATION, TELP, FAX, TUGASPOKOK, ONSEARCH, STATUS, DATECREATE";
 $sql.=" FROM skpd";
 $query=mysqli_query($conn, $sql) or die("master_skpd_controller: Get Data SKPD #1");
 $totalData = mysqli_num_rows($query);
@@ -26,13 +29,16 @@ $totalFiltered = $totalData;  // when there is no search parameter then total nu
 
 if( !empty($requestData['search']['value']) ) {
     // if there is a search parameter
-    $sql = "SELECT IDSKPD, NAME, DETAIL, LOCATION, ONSEARCH, STATUS, DATECREATE";
+    $sql = "SELECT IDSKPD, NAME, PEJABAT, LOCATION, TELP, FAX, TUGASPOKOK, ONSEARCH, STATUS, DATECREATE";
     $sql.=" FROM skpd";
     $sql.=" WHERE IDSKPD LIKE '".$requestData['search']['value']."%' ";
     // $requestData['search']['value'] contains search parameter
     $sql.=" OR NAME LIKE '".$requestData['search']['value']."%' ";
-    $sql.=" OR DETAIL LIKE '".$requestData['search']['value']."%' ";
+    $sql.=" OR PEJABAT LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR LOCATION LIKE '".$requestData['search']['value']."%' ";
+    $sql.=" OR TELP LIKE '".$requestData['search']['value']."%' ";
+    $sql.=" OR FAX LIKE '".$requestData['search']['value']."%' ";
+    $sql.=" OR TUGASPOKOK LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR ONSEARCH LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR STATUS LIKE '".$requestData['search']['value']."%' ";
     $sql.=" OR DATECREATE LIKE '".$requestData['search']['value']."%' ";
@@ -46,7 +52,7 @@ if( !empty($requestData['search']['value']) ) {
     
 } else {    
 
-    $sql = "SELECT IDSKPD, NAME, DETAIL, LOCATION, ONSEARCH, STATUS, DATECREATE";
+    $sql = "SELECT IDSKPD, NAME, PEJABAT, LOCATION, TELP, FAX, TUGASPOKOK, ONSEARCH, STATUS, DATECREATE";
     $sql.=" FROM skpd";
     $sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."   LIMIT ".$requestData['start']." ,".$requestData['length']." ";
     $query=mysqli_query($conn, $sql) or die("master_skpd_controller: Get SKPD from Search false #4");
@@ -64,10 +70,13 @@ while( $row=mysqli_fetch_array($query)) {  // preparing an array
     // $nestedData[] = "";
     $nestedData[] = $row["IDSKPD"];
     $nestedData[] = $row["NAME"];
-    $nestedData[] = $row["DETAIL"];
+    $nestedData[] = $row["PEJABAT"];
     $nestedData[] = $row["LOCATION"];
+    $nestedData[] = $row["TELP"];
+    $nestedData[] = $row["FAX"];
+    $nestedData[] = $row["TUGASPOKOK"];
     $nestedData[] = $row["ONSEARCH"];
-
+    
     $st = $row["STATUS"];
     $stval = "";
     if($st != "AKTIF"){
@@ -76,11 +85,12 @@ while( $row=mysqli_fetch_array($query)) {  // preparing an array
         $stval = "<span class='label label-success'>AKTIF</span>";
     }
     $nestedData[] = $stval;
-    $nestedData[] = $row["DATECREATE"];
+    $datefor= date("d F Y", strtotime($row["DATECREATE"]));
+    $nestedData[] = $datefor;
     // $nestedData[] = $row["NamaKB"];
     // $nestedData[] = $row["NIPKB"];
     $nestedData[] = "<td><center>
-                     <button data-toggle='tooltip' title='Ubah' class='btn btn-warning btn-sm btn-outline' onclick='skpd.edit(\"".$row['IDSKPD']."\",\"".$row['IDSKPD']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
+                     <button data-toggle='tooltip' title='Ubah' class='btn btn-warning btn-sm btn-outline' onclick='skpd.edit(\"".$row['IDSKPD']."\", \"".$row['NAME']."\", \"".$row['PEJABAT']."\", \"".$row['LOCATION']."\", \"".$row['TELP']."\", \"".$row['FAX']."\", \"".$row['TUGASPOKOK']."\", \"".$row['ONSEARCH']."\", \"".$row['STATUS']."\")'> <i class='glyphicon glyphicon-pencil'></i> </button>
                      </center></td>";
     $data[] = $nestedData;
 }

@@ -5,6 +5,8 @@
   $_skpd    = $_POST["skpd"];
   $_namadok  = $_POST["namadok"];
   $_rangkuman  = $_POST["rangkuman"];
+  $_jenisdok  = $_POST["jenisdokumen"];
+  $_jenisnmdok  = $_POST["jenisname"];
   $_user    = $_POST["user"];
 
   $timezone = "Asia/Singapore";
@@ -13,7 +15,9 @@
   $sql = "UPDATE dokumen SET  
       IDSKPD            = '".$_skpd."', 
       NAMADOKUMEN       = '".$_namadok."', 
-      RANGKUMANDOKUMEN  = '".$_rangkuman."', 
+      RANGKUMANDOKUMEN  = '".$_rangkuman."',
+      JENIS             = '".$_jenisdok."', 
+      JENISNAME         = '".$_jenisnmdok."', 
       USER              = '".$_user."', 
       DATECREATE        = '".$date."' WHERE IDDOKUMEN = '".$_id."'";
   $result = $mysqli->query($sql);
